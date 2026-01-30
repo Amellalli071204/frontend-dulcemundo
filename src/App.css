@@ -1,140 +1,40 @@
-/* --- ESTILOS GLOBALES --- */
+/* --- ESTILOS GENERALES (PARA TODO EL SITIO) --- */
 body {
-  background-color: #fff0f5;
+  background-color: #fff0f5; /* Rosa lavanda suave */
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* --- BARRA DE NAVEGACIÓN --- */
-.nav-bar {
+/* --- BARRA DE NAVEGACIÓN SUPERIOR --- */
+.nav-principal {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
+  padding: 15px 50px;
   background: white;
   border-bottom: 3px solid #ffb6c1;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.logo h1 {
-  color: #db7093 !important; /* Color rosa fuerte para el título */
+.nav-principal h1 {
+  color: #db7093;
   margin: 0;
   font-size: 1.8rem;
+  cursor: pointer;
 }
 
-.btn-carrito-link {
+.btn-nav {
   background: #ff69b4;
   color: white !important;
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-radius: 50px;
   text-decoration: none;
   font-weight: bold;
-}
-
-/* --- PANTALLA TIENDA (ARREGLO DE TEXTOS BLANCOS) --- */
-.grid-productos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.tarjeta-dulce {
-  background: white;
-  border-radius: 25px;
-  padding: 20px;
-  border: 4px solid #ffe4e1;
-  text-align: center;
   transition: 0.3s;
 }
 
-/* Forzamos el color de los nombres de productos */
-.tarjeta-dulce h3 {
-  color: #c71585 !important; /* Magenta oscuro */
-  margin: 15px 0 5px 0;
-  font-size: 1.2rem;
+.btn-nav:hover {
+  background: #ff1493;
+  transform: scale(1.05);
 }
-
-/* Forzamos el color de los precios en la tienda */
-.precio-tag {
-  color: #db7093 !important; /* Rosa fuerte */
-  font-weight: bold;
-  font-size: 1.4rem;
-  margin-bottom: 15px;
-  display: block;
-}
-
-.imagen-contenedor img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.btn-agregar {
-  background: #ff69b4;
-  color: white !important;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-}
-
-/* --- PANTALLA CARRITO (MANTIENE LO QUE YA FUNCIONA) --- */
-.pantalla-carrito-detalle {
-  padding: 40px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.titulo-seccion {
-  color: #c71585 !important;
-}
-
-.info-p strong {
-  color: #c71585 !important;
-}
-
-.info-p span {
-  color: #555 !important;
-}
-
-.cantidad-num {
-  color: #333 !important;
-}
-
-.fila-producto {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 0;
-  border-bottom: 1px dashed #ffb6c1;
-}
-
-.caja-resumen-pago {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  border: 3px solid #ffb6c1;
-  text-align: center;
-}
-
-.botones-metodos button {
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  color: white !important;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.btn-mp { background: #009ee3; }
-.btn-tr { background: #4caf50; }
-.btn-ef { background: #ff9800; }

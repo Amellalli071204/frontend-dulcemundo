@@ -1,0 +1,10 @@
+.pantalla-carrito { padding: 30px; max-width: 900px; margin: 0 auto; text-align: left; }
+.contenedor-flex { display: flex; gap: 20px; flex-wrap: wrap; }
+.lista { flex: 2; background: white; padding: 20px; border-radius: 15px; }
+.fila { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+/* ESTO ARREGLA LA IMAGEN GIGANTE */
+.mini { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+.info strong { color: #c71585; display: block; }
+.resumen { flex: 1; background: white; padding: 20px; border-radius: 15px; border: 2px solid #ffb6c1; text-align: center; }
+.resumen button { width: 100%; margin-top: 10px; padding: 10px; border: none; border-radius: 10px; color: white; cursor: pointer; }
+.mp { background: #009ee3; } .tr { background: #4caf50; } .ef { background: #ff9800; }
