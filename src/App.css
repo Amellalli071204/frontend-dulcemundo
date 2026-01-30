@@ -1,93 +1,148 @@
 body {
-  background-color: #fff0f5; /* Lavanda muy suave */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff0f5;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
-  padding: 20px;
-  text-align: center;
+  padding: 40px 20px;
 }
 
 h1 {
-  color: #db7093; /* Rosa oscuro */
-  font-size: 3rem;
-  margin-bottom: 40px;
-  text-shadow: 2px 2px 0px #ffc0cb;
-}
-
-/* --- ESTILO NUEVO DEL CARRITO FLOTANTE --- */
-.carrito-icono {
-  background-color: white;
   color: #db7093;
-  padding: 10px 20px;
-  border-radius: 50px;
-  position: fixed; /* Se queda pegado a la pantalla */
-  top: 20px;
-  right: 20px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  border: 2px solid #ff69b4;
-  z-index: 1000;
-  cursor: pointer;
-  transition: transform 0.2s;
+  font-size: 3.5rem;
+  text-shadow: 3px 3px 0px #ffd1dc;
+  margin-bottom: 50px;
+  text-align: center;
 }
 
-.carrito-icono:hover {
-  transform: scale(1.1);
-}
-
-.grid-productos {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.tarjeta {
+/* --- CARRITO FLOTANTE --- */
+.carrito-flotante {
+  position: fixed;
+  top: 30px;
+  right: 30px;
   background: white;
-  border-radius: 20px;
+  padding: 15px 25px;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(219, 112, 147, 0.3);
+  border: 2px solid #ffb6c1;
+  cursor: pointer;
+  z-index: 100;
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.carrito-flotante:hover { transform: scale(1.1); }
+
+.badge {
+  background: #ff69b4;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+/* --- GRID DE PRODUCTOS --- */
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tarjeta-dulce {
+  background: white;
+  border-radius: 25px;
   padding: 20px;
-  width: 250px;
-  box-shadow: 0 10px 25px rgba(219, 112, 147, 0.2);
-  border: 3px solid #ffe4e1;
-  transition: transform 0.3s ease;
+  text-align: center;
+  border: 4px solid #ffe4e1;
+  transition: 0.3s;
 }
 
-.tarjeta:hover {
-  transform: translateY(-10px);
-  border-color: #ffb6c1;
-}
+.tarjeta-dulce:hover { transform: translateY(-10px); border-color: #ffb6c1; }
 
-img {
+.imagen-wrapper img {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 15px;
-  margin-bottom: 15px;
+  border-radius: 20px;
 }
 
-h3 {
-  color: #c71585;
-  margin: 10px 0;
-}
+h3 { color: #c71585; margin: 15px 0 5px 0; }
+.precio-tag { color: #db7093; font-weight: bold; font-size: 1.4rem; margin-bottom: 15px; }
 
-.precio {
-  font-size: 1.5rem;
-  color: #db7093;
-  font-weight: bold;
-}
-
-button {
-  background-color: #ff69b4; /* Hot Pink */
+.btn-agregar {
+  background: #ff69b4;
   color: white;
   border: none;
-  padding: 12px 25px;
+  padding: 10px 20px;
   border-radius: 50px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+  font-weight: bold;
 }
 
-button:hover {
-  background-color: #ff1493;
-  transform: scale(1.05);
+/* --- MODAL (CARRITO ABIERTO) --- */
+.modal-overlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(5px);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 2000;
 }
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 30px;
+  width: 90%;
+  max-width: 550px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.btn-cerrar {
+  position: absolute; top: 15px; right: 20px;
+  background: none; border: none; font-size: 2rem; color: #db7093; cursor: pointer;
+}
+
+.item-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item-controles button {
+  background: #ffe4e1;
+  border: none;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.item-controles span { margin: 0 15px; font-weight: bold; }
+
+/* --- SECCION PAGO --- */
+.total-contenedor {
+  display: flex; justify-content: space-between;
+  font-size: 1.5rem; font-weight: bold; margin: 20px 0;
+  color: #c71585;
+}
+
+.instruccion-pago { margin-bottom: 15px; font-weight: bold; color: #666; }
+
+.botones-pago { display: flex; flex-direction: column; gap: 10px; }
+
+.botones-pago button {
+  padding: 12px; border: none; border-radius: 15px;
+  color: white; font-weight: bold; cursor: pointer;
+  transition: 0.2s;
+}
+
+.pago-mp { background: #009ee3; }
+.pago-bank { background: #4caf50; }
+.pago-cash { background: #ff9800; }
+
+.botones-pago button:hover { opacity: 0.8; transform: scale(1.02); }
