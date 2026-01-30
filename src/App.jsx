@@ -8,100 +8,77 @@ function App() {
   const [mostrarCarrito, setMostrarCarrito] = useState(false)
 
   useEffect(() => {
-    // 👇 PEGA AQUÍ TU LINK DE RAILWAY (El que termina en /api/productos)
+    // 👇 REVISA QUE ESTE LINK SEA EL TUYO EXACTO
     const URL_BACKEND = 'https://backend-dulcemundo-pro-production.up.railway.app/api/productos';
     
     axios.get(URL_BACKEND)
       .then(res => setProductos(res.data))
-      .catch(err => console.error("Error:", err))
+      .catch(err => console.error("Error al cargar:", err))
   }, [])
 
-  // Agregar producto o aumentar cantidad
-  const agregarAlCarrito = (producto) => {
-    const existe = carrito.find(item => item.id === producto.id);
+  const agregarAlCarrito = (p) => {
+    const existe = carrito.find(item => item.id === p.id);
     if (existe) {
-      setCarrito(carrito.map(item => 
-        item.id === producto.id ? { ...existe, cantidad: existe.cantidad + 1 } : item
-      ));
+      setCarrito(carrito.map(item => item.id === p.id ? { ...item, cantidad: item.cantidad + 1 } : item));
     } else {
-      setCarrito([...carrito, { ...producto, cantidad: 1 }]);
+      setCarrito([...carrito, { ...p, cantidad: 1 }]);
     }
   }
 
-  // Quitar producto o disminuir cantidad
-  const quitarDelCarrito = (id) => {
-    const existe = carrito.find(item => item.id === id);
-    if (existe.cantidad === 1) {
-      setCarrito(carrito.filter(item => item.id !== id));
+  const quitarUno = (id) => {
+    const item = carrito.find(i => i.id === id);
+    if (item.cantidad === 1) {
+      setCarrito(carrito.filter(i => i.id !== id));
     } else {
-      setCarrito(carrito.map(item => 
-        item.id === id ? { ...existe, cantidad: existe.cantidad - 1 } : item
-      ));
+      setCarrito(carrito.map(i => i.id === id ? { ...i, cantidad: i.cantidad - 1 } : i));
     }
   }
 
-  const totalPagar = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-  const totalArticulos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
 
-  const finalizarPago = (metodo) => {
-    alert(`🛒 Pedido Confirmado\n💰 Total: $${totalPagar.toFixed(2)}\n💳 Método: ${metodo}\n\n¡Gracias por comprar en Dulce Mundo! 🍬`);
+  const pagar = (metodo) => {
+    alert(`💰 Total a pagar: $${total.toFixed(2)}\nMetodo: ${metodo}\n\n¡Gracias por tu compra! 🍬`);
     setCarrito([]);
     setMostrarCarrito(false);
   }
 
   return (
-    <div className="contenedor-principal">
-      {/* Botón Flotante del Carrito */}
-      <div className="carrito-flotante" onClick={() => setMostrarCarrito(true)}>
-        <span>🛒</span>
-        <span className="badge">{totalArticulos}</span>
-      </div>
+    <div className="app-container">
+      {/* BOTON DEL CARRITO (Siempre visible) */}
+      <button className="boton-carrito-flotante" onClick={() => setMostrarCarrito(true)}>
+        🛒 Ver Carrito ({carrito.reduce((a, b) => a + b.cantidad, 0)})
+      </button>
 
       <h1>🌸 Dulce Mundo 🍬</h1>
 
-      {/* Ventana Modal del Carrito */}
+      {/* VENTANA DEL CARRITO (MODAL) */}
       {mostrarCarrito && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="btn-cerrar" onClick={() => setMostrarCarrito(false)}>×</button>
-            <h2>Tu Carrito 🛍️</h2>
+        <div className="capa-oscura">
+          <div className="ventana-carrito">
+            <button className="boton-cerrar" onClick={() => setMostrarCarrito(false)}>X</button>
+            <h2>Tu Pedido 🍭</h2>
             
-            <div className="lista-carrito">
-              {carrito.length === 0 ? (
-                <p>Tu carrito está vacío 🥺</p>
-              ) : (
-                carrito.map(item => (
+            {carrito.length === 0 ? <p>Carrito vacío</p> : (
+              <div className="lista-items">
+                {carrito.map(item => (
                   <div key={item.id} className="item-fila">
-                    <div className="item-info">
-                      <strong>{item.nombre}</strong>
-                      <span>${item.precio} c/u</span>
-                    </div>
-                    <div className="item-controles">
-                      <button onClick={() => quitarDelCarrito(item.id)}>-</button>
-                      <span>{item.cantidad}</span>
+                    <span>{item.nombre}</span>
+                    <div className="controles">
+                      <button onClick={() => quitarUno(item.id)}>-</button>
+                      <strong>{item.cantidad}</strong>
                       <button onClick={() => agregarAlCarrito(item)}>+</button>
                     </div>
-                    <div className="item-subtotal">
-                      ${(item.precio * item.cantidad).toFixed(2)}
-                    </div>
+                    <span>${(item.precio * item.cantidad).toFixed(2)}</span>
                   </div>
-                ))
-              )}
-            </div>
-
-            {carrito.length > 0 && (
-              <div className="seccion-pago">
-                <hr />
-                <div className="total-contenedor">
-                  <span>TOTAL A PAGAR:</span>
-                  <span className="monto-total">${totalPagar.toFixed(2)}</span>
-                </div>
-                
-                <p className="instruccion-pago">Selecciona tu método de pago:</p>
-                <div className="botones-pago">
-                  <button onClick={() => finalizarPago('Mercado Pago')} className="pago-mp">Mercado Pago 🔵</button>
-                  <button onClick={() => finalizarPago('Transferencia')} className="pago-bank">Transferencia 🏦</button>
-                  <button onClick={() => finalizarPago('Efectivo (One Push)')} className="pago-cash">Efectivo 💵</button>
+                ))}
+                <div className="total-seccion">
+                  <h3>Total: ${total.toFixed(2)}</h3>
+                  <p>¿Cómo deseas pagar?</p>
+                  <div className="opciones-pago">
+                    <button onClick={() => pagar('Mercado Pago')} className="btn-mp">Mercado Pago 🔵</button>
+                    <button onClick={() => pagar('Transferencia')} className="btn-tr">Transferencia 🏦</button>
+                    <button onClick={() => pagar('Efectivo')} className="btn-ef">Efectivo 💵</button>
+                  </div>
                 </div>
               </div>
             )}
@@ -109,18 +86,13 @@ function App() {
         </div>
       )}
 
-      {/* Grid de Productos */}
-      <div className="grid-productos">
+      <div className="productos-grid">
         {productos.map(p => (
-          <div key={p.id} className="tarjeta-dulce">
-            <div className="imagen-wrapper">
-              <img src={p.imagen_url} alt={p.nombre} />
-            </div>
+          <div key={p.id} className="tarjeta-producto">
+            <img src={p.imagen_url} alt={p.nombre} />
             <h3>{p.nombre}</h3>
-            <p className="precio-tag">${p.precio}</p>
-            <button className="btn-agregar" onClick={() => agregarAlCarrito(p)}>
-              Añadir 🛒
-            </button>
+            <p className="precio">${p.precio}</p>
+            <button className="btn-add" onClick={() => agregarAlCarrito(p)}>Agregar 🛒</button>
           </div>
         ))}
       </div>
