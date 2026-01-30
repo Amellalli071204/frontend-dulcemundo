@@ -13,6 +13,27 @@ h1 {
   text-shadow: 2px 2px 0px #ffc0cb;
 }
 
+/* --- ESTILO NUEVO DEL CARRITO FLOTANTE --- */
+.carrito-icono {
+  background-color: white;
+  color: #db7093;
+  padding: 10px 20px;
+  border-radius: 50px;
+  position: fixed; /* Se queda pegado a la pantalla */
+  top: 20px;
+  right: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 2px solid #ff69b4;
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.carrito-icono:hover {
+  transform: scale(1.1);
+}
+
 .grid-productos {
   display: flex;
   justify-content: center;
@@ -26,7 +47,7 @@ h1 {
   padding: 20px;
   width: 250px;
   box-shadow: 0 10px 25px rgba(219, 112, 147, 0.2);
-  border: 3px solid #ffe4e1; /* Borde rosa pálido */
+  border: 3px solid #ffe4e1;
   transition: transform 0.3s ease;
 }
 
