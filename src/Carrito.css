@@ -1,21 +1,19 @@
 .pagina-carrito-total {
-  padding: 40px 4%;
-  max-width: 98% !important; /* Expandimos el carrito */
+  padding: 50px 5%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.link-regresar { color: #db7093; text-decoration: none; font-weight: bold; }
-.titulo-carrito { color: #c71585; font-size: 2.5rem; margin: 20px 0; }
+.link-regresar { color: #db7093; text-decoration: none; font-weight: bold; margin-bottom: 20px; display: block; }
 
 .layout-carrito {
   display: flex;
   gap: 40px;
-  width: 100%;
   flex-wrap: wrap;
 }
 
 .seccion-articulos {
-  flex: 3; /* Esto hace que la lista de dulces sea más ancha */
+  flex: 2;
   background: white;
   padding: 30px;
   border-radius: 25px;
@@ -30,34 +28,24 @@
   border-bottom: 2px dashed #ffb6c1;
 }
 
-.foto-carrito-mini { width: 100px; height: 100px; object-fit: cover; border-radius: 15px; }
+.foto-carrito-mini { width: 90px; height: 90px; object-fit: cover; border-radius: 15px; }
 
-.nombre-p { color: #c71585 !important; font-size: 1.3rem; }
+/* Colores oscuros para que se vea el texto */
+.nombre-p { color: #c71585 !important; font-size: 1.2rem; }
 .num-cant { color: #333 !important; font-weight: bold; font-size: 1.2rem; margin: 0 15px; }
 
 .panel-resumen-pago {
-  flex: 1; /* El panel de pago se queda en un tamaño proporcional a la derecha */
+  flex: 1;
   background: white;
   padding: 35px;
   border-radius: 25px;
   border: 4px solid #ffb6c1;
   text-align: center;
-  min-width: 300px;
+  min-width: 320px;
 }
 
-.cifra-total { font-size: 3rem; color: #db7093; font-weight: bold; margin: 20px 0; }
+.cifra-total { font-size: 2.8rem; color: #db7093; font-weight: bold; margin: 20px 0; }
 
-.botones-pago-grupo button {
-  width: 100%;
-  padding: 18px;
-  margin-bottom: 12px;
-  border: none;
-  border-radius: 15px;
-  color: white !important;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.btn-pago-mp { background: #009ee3; }
-.btn-pago-tr { background: #4caf50; }
-.btn-pago-ef { background: #ff9800; }
+.btn-pago-mp { background: #009ee3; color: white; padding: 15px; border-radius: 12px; width: 100%; border: none; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+.btn-pago-tr { background: #4caf50; color: white; padding: 15px; border-radius: 12px; width: 100%; border: none; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+.btn-pago-ef { background: #ff9800; color: white; padding: 15px; border-radius: 12px; width: 100%; border: none; font-weight: bold; cursor: pointer; }
