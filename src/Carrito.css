@@ -1,37 +1,63 @@
-.pagina-carrito-total { padding: 40px; max-width: 1000px; margin: 0 auto; text-align: left; }
-.link-regresar { color: #db7093; text-decoration: none; font-weight: bold; }
-.titulo-carrito { color: #c71585; margin: 25px 0; font-size: 2.2rem; }
+.pagina-carrito-total {
+  padding: 40px 4%;
+  max-width: 98% !important; /* Expandimos el carrito */
+  margin: 0 auto;
+}
 
-.layout-carrito { display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start; }
-.seccion-articulos { flex: 2; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.link-regresar { color: #db7093; text-decoration: none; font-weight: bold; }
+.titulo-carrito { color: #c71585; font-size: 2.5rem; margin: 20px 0; }
+
+.layout-carrito {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.seccion-articulos {
+  flex: 3; /* Esto hace que la lista de dulces sea más ancha */
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
 
 .tarjeta-item-carrito {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 15px 0; border-bottom: 1px dashed #ffb6c1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 2px dashed #ffb6c1;
 }
 
-/* AQUÍ ARREGLAMOS LA IMAGEN GIGANTE */
-.foto-carrito-mini { width: 80px; height: 80px; object-fit: cover; border-radius: 12px; }
+.foto-carrito-mini { width: 100px; height: 100px; object-fit: cover; border-radius: 15px; }
 
-/* ARREGLO DE TEXTOS BLANCOS */
-.nombre-p { color: #c71585 !important; display: block; font-size: 1.1rem; }
-.precio-p { color: #555 !important; font-size: 0.9rem; }
-.num-cant { color: #333 !important; font-weight: bold; margin: 0 10px; }
-.subtotal-p { color: #db7093 !important; font-weight: bold; font-size: 1.1rem; }
-
-.selector-cantidad button {
-  background: #ffe4e1; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; color: #c71585; font-weight: bold;
-}
+.nombre-p { color: #c71585 !important; font-size: 1.3rem; }
+.num-cant { color: #333 !important; font-weight: bold; font-size: 1.2rem; margin: 0 15px; }
 
 .panel-resumen-pago {
-  flex: 1; background: white; padding: 30px; border-radius: 20px; border: 3px solid #ffb6c1; text-align: center;
+  flex: 1; /* El panel de pago se queda en un tamaño proporcional a la derecha */
+  background: white;
+  padding: 35px;
+  border-radius: 25px;
+  border: 4px solid #ffb6c1;
+  text-align: center;
+  min-width: 300px;
 }
-.cifra-total { font-size: 2.2rem; color: #db7093; font-weight: bold; margin: 15px 0; }
-.texto-metodo { color: #666; font-weight: bold; margin-bottom: 15px; }
+
+.cifra-total { font-size: 3rem; color: #db7093; font-weight: bold; margin: 20px 0; }
 
 .botones-pago-grupo button {
-  width: 100%; padding: 15px; border: none; border-radius: 12px; color: white !important; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.2s;
+  width: 100%;
+  padding: 18px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 15px;
+  color: white !important;
+  font-weight: bold;
+  cursor: pointer;
 }
+
 .btn-pago-mp { background: #009ee3; }
 .btn-pago-tr { background: #4caf50; }
 .btn-pago-ef { background: #ff9800; }
