@@ -54,4 +54,14 @@ export default function App() {
       </Routes>
     </Router>
   );
+
+  <Router>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/registro" element={<Registro />} />
+    {/* Esta ruta solo tú la conocerás por ahora */}
+    <Route path="/admin" element={<PanelAdmin />} /> 
+  </Routes>
+</Router>
 }
