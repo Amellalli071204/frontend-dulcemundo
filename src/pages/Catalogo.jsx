@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Catalogo.css'; // ¡Aquí conectamos el estilo!
+import './Catalogo.css'; // ¡Aquí conectamos el estilo!
 
 export default function Catalogo() {
   const [productos, setProductos] = useState([]);
