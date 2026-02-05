@@ -1,35 +1,33 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Importa tus componentes (asegúrate de que los nombres y rutas coincidan)
-import Navbar from './components/Navbar';
-import Home from './pages/Home'; // Tu catálogo de dulces
-import Login from './components/Login';
-import Registro from './components/Registro';
-import PanelAdmin from './pages/PanelAdmin'; // La página para gestionar productos
+// 1. Navbar está dentro de la carpeta components
+import Navbar from './components/Navbar'; 
+
+// 2. Login y Registro están directamente en src (según tu captura)
+import Login from './Login';
+import Registro from './Registro';
+
+// 3. Catálogo (Home) también está en src
+import Catalogo from './Catalogo';
 
 function App() {
   return (
     <Router>
-      {/* El Navbar se queda afuera de Routes para que aparezca en todas las páginas */}
+      {/* Tu menú rosa siempre visible */}
       <Navbar /> 
       
-      <div className="container" style={{ marginTop: '20px' }}>
+      <div className="container">
         <Routes>
-          {/* Ruta principal: Tu catálogo de dulces */}
-          <Route path="/" element={<Home />} />
+          {/* Ruta principal: Catálogo */}
+          <Route path="/" element={<Catalogo />} />
 
-          {/* Ruta para que los clientes se unan */}
+          {/* Rutas de usuario */}
+          <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
 
-          {/* Ruta para iniciar sesión */}
-          <Route path="/login" element={<Login />} />
-
-          {/* Ruta del Panel de Administración (donde tú mandas) */}
-          <Route path="/admin" element={<PanelAdmin />} />
-          
-          {/* Ruta por si alguien escribe una dirección que no existe */}
-          <Route path="*" element={<h2>404 - ¡Uy! Aquí no hay dulces 🍭</h2>} />
+          {/* Página no encontrada */}
+          <Route path="*" element={<h2>404 - ¡Aquí no hay dulces! 🍭</h2>} />
         </Routes>
       </div>
     </Router>
