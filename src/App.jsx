@@ -1,67 +1,39 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import axios from 'axios';
-import Catalogo from './Catalogo';
-import Carrito from './Carrito';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-export default function App() {
-  const [productos, setProductos] = useState([]);
-  const [carrito, setCarrito] = useState([]);
+// Importa tus componentes (asegúrate de que los nombres y rutas coincidan)
+import Navbar from './components/Navbar';
+import Home from './pages/Home'; // Tu catálogo de dulces
+import Login from './components/Login';
+import Registro from './components/Registro';
+import PanelAdmin from './pages/PanelAdmin'; // La página para gestionar productos
 
-  useEffect(() => {
-    // 👇 REVISA QUE ESTE SEA TU LINK DE RAILWAY
-    const URL = 'https://backend-dulcemundo-pro-production.up.railway.app/api/productos';
-    axios.get(URL)
-      .then(res => setProductos(res.data))
-      .catch(err => console.error("Error al cargar productos:", err));
-  }, []);
-
-  const agregar = (p) => {
-    const ex = carrito.find(i => i.id === p.id);
-    if (ex) {
-      setCarrito(carrito.map(i => i.id === p.id ? { ...i, cantidad: i.cantidad + 1 } : i));
-    } else {
-      setCarrito([...carrito, { ...p, cantidad: 1 }]);
-    }
-  };
-
-  const quitar = (id) => {
-    const ex = carrito.find(i => i.id === id);
-    if (ex.cantidad === 1) {
-      setCarrito(carrito.filter(i => i.id !== id));
-    } else {
-      setCarrito(carrito.map(i => i.id === id ? { ...i, cantidad: i.cantidad - 1 } : i));
-    }
-  };
-
-  const totalArticulos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-
+function App() {
   return (
     <Router>
-      <nav className="nav-principal">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <h1>🌸 Dulce Mundo 🍬</h1>
-        </Link>
-        <Link to="/carrito" className="btn-nav">
-          Mi Carrito ({totalArticulos}) 🛒
-        </Link>
-      </nav>
+      {/* El Navbar se queda afuera de Routes para que aparezca en todas las páginas */}
+      <Navbar /> 
+      
+      <div className="container" style={{ marginTop: '20px' }}>
+        <Routes>
+          {/* Ruta principal: Tu catálogo de dulces */}
+          <Route path="/" element={<Home />} />
 
-      <Routes>
-        <Route path="/" element={<Catalogo productos={productos} agregar={agregar} />} />
-        <Route path="/carrito" element={<Carrito carrito={carrito} agregar={agregar} quitar={quitar} limpiar={() => setCarrito([])} />} />
-      </Routes>
+          {/* Ruta para que los clientes se unan */}
+          <Route path="/registro" element={<Registro />} />
+
+          {/* Ruta para iniciar sesión */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Ruta del Panel de Administración (donde tú mandas) */}
+          <Route path="/admin" element={<PanelAdmin />} />
+          
+          {/* Ruta por si alguien escribe una dirección que no existe */}
+          <Route path="*" element={<h2>404 - ¡Uy! Aquí no hay dulces 🍭</h2>} />
+        </Routes>
+      </div>
     </Router>
   );
-
-  <Router>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/registro" element={<Registro />} />
-    {/* Esta ruta solo tú la conocerás por ahora */}
-    <Route path="/admin" element={<PanelAdmin />} /> 
-  </Routes>
-</Router>
 }
+
+export default App;
