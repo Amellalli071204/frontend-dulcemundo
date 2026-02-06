@@ -1,54 +1,49 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
-  const [credenciales, setCredenciales] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
+const Login = () => {
+    const [credenciales, setCredenciales] = useState({ email: '', password: '' });
 
-  const entrar = async (e) => {
-    e.preventDefault();
-    try {
-      // Agregamos /api/login al final de tu URL
-      const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app/api/login', credentials);
-      
-      if (res.data.success) {
-        // Guardamos los datos del usuario para el Navbar
-        localStorage.setItem('usuario', JSON.stringify(res.data.user));
-        alert(`¡Hola ${res.data.user.nombre}! 👋`);
-        navigate('/'); // Te manda al inicio después de entrar
-      }
-    } catch (error) {
-      alert("Credenciales incorrectas o error de conexión ❌");
-      console.error(error);
-    }
-  };
+    const handleChange = (e) => {
+        setCredenciales({ ...credenciales, [e.target.name]: e.target.value });
+    };
 
-  return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1 style={{ color: '#ff69b4' }}>Iniciar Sesión</h1>
-      <form onSubmit={entrar} style={{ display: 'inline-block', textAlign: 'left' }}>
-        <input 
-          type="email" 
-          placeholder="Tu correo" 
-          onChange={(e) => setCredenciales({...credenciales, email: e.target.value})} 
-          required 
-          style={styles.input}
-        /><br/>
-        <input 
-          type="password" 
-          placeholder="Tu contraseña" 
-          onChange={(e) => setCredenciales({...credenciales, password: e.target.value})} 
-          required 
-          style={styles.input}
-        /><br/>
-        <button type="submit" style={styles.boton}>Entrar 🍭</button>
-      </form>
-    </div>
-  );
-}
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // CORRECCIÓN: Usamos 'credenciales' que es la variable definida
+            const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app/api/login', credenciales);
+            
+            if (res.data.success) {
+                alert(`¡Bienvenida, ${res.data.user.nombre}! 🍭`);
+                window.location.href = '/catalogo';
+            }
+        } catch (error) {
+            console.error("Error en el login:", error);
+            alert("Credenciales incorrectas o error de conexión ❌");
+        }
+    };
 
-const styles = {
-  input: { padding: '10px', margin: '5px', borderRadius: '5px', border: '1px solid #ccc', width: '250px' },
-  boton: { padding: '10px 20px', backgroundColor: '#ff69b4', color: 'white', border: 'none', borderRadius: '20px', cursor: 'pointer', width: '100%', marginTop: '10px' }
+    return (
+        <div style={{ padding: '50px', color: 'white', textAlign: 'center' }}>
+            <h1 style={{ color: '#ff69b4' }}>Iniciar Sesión</h1>
+            <form onSubmit={handleSubmit} style={{ display: 'inline-block', textAlign: 'left' }}>
+                <input 
+                    type="email" name="email" placeholder="Tu correo" 
+                    onChange={handleChange} required 
+                    style={{ display: 'block', margin: '10px 0', padding: '10px', width: '300px' }}
+                />
+                <input 
+                    type="password" name="password" placeholder="Tu contraseña" 
+                    onChange={handleChange} required 
+                    style={{ display: 'block', margin: '10px 0', padding: '10px', width: '300px' }}
+                />
+                <button type="submit" style={{ backgroundColor: '#ff69b4', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '20px', width: '100%' }}>
+                    Entrar 🍭
+                </button>
+            </form>
+        </div>
+    );
 };
+
+export default Login;
