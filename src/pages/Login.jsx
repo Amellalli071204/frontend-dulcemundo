@@ -10,7 +10,7 @@ export default function Login() {
     e.preventDefault();
     try {
       // Agregamos /api/login al final de tu URL
-      const res = await axios.get('/api/productos');
+      const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app/api/login', credentials);
       
       if (res.data.success) {
         // Guardamos los datos del usuario para el Navbar

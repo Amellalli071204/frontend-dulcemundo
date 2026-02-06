@@ -8,7 +8,7 @@ const Catalogo = () => {
     const fetchProductos = async () => {
         try {
             // Usamos la ruta corta gracias al Proxy que ya configuramos
-            const res = await axios.get('/api/productos');
+            const res = await axios.get('https://backend-dulcemundo-pro-production.up.railway.app/api/productos');
             
             console.log("Datos recibidos del backend:", res.data);
 
