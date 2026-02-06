@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,31 +9,46 @@ export default function Login() {
   const entrar = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app', credenciales);
+      // Agregamos /api/login al final de tu URL
+      const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app/api/login', credenciales);
+      
       if (res.data.success) {
-        // Guardamos el rol (admin o cliente) para saber qué mostrar
+        // Guardamos los datos del usuario para el Navbar
         localStorage.setItem('usuario', JSON.stringify(res.data.user));
-        alert(`¡Hola ${res.data.user.nombre}!`);
-        
-        // Si eres admin, te mandamos al panel de control
-        if (res.data.user.rol === 'admin') navigate('/admin');
-        else navigate('/');
+        alert(`¡Hola ${res.data.user.nombre}! 👋`);
+        navigate('/'); // Te manda al inicio después de entrar
       }
-    } catch (err) {
-      alert("Credenciales incorrectas ❌");
+    } catch (error) {
+      alert("Credenciales incorrectas o error de conexión ❌");
+      console.error(error);
     }
   };
 
   return (
-    <div className="auth-container" style={{ padding: '50px', textAlign: 'center' }}>
-      <h2 style={{ color: '#ff69b4' }}>Iniciar Sesión</h2>
-      <form onSubmit={entrar} style={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', margin: 'auto', gap: '10px' }}>
-        <input type="email" placeholder="Tu correo" onChange={e => setCredenciales({...credenciales, email: e.target.value})} />
-        <input type="password" placeholder="Tu contraseña" onChange={e => setCredenciales({...credenciales, password: e.target.value})} />
-        <button type="submit" style={{ backgroundColor: '#ff69b4', color: 'white', border: 'none', padding: '10px', borderRadius: '20px', cursor: 'pointer' }}>
-          Entrar 🍬
-        </button>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1 style={{ color: '#ff69b4' }}>Iniciar Sesión</h1>
+      <form onSubmit={entrar} style={{ display: 'inline-block', textAlign: 'left' }}>
+        <input 
+          type="email" 
+          placeholder="Tu correo" 
+          onChange={(e) => setCredenciales({...credenciales, email: e.target.value})} 
+          required 
+          style={styles.input}
+        /><br/>
+        <input 
+          type="password" 
+          placeholder="Tu contraseña" 
+          onChange={(e) => setCredenciales({...credenciales, password: e.target.value})} 
+          required 
+          style={styles.input}
+        /><br/>
+        <button type="submit" style={styles.boton}>Entrar 🍭</button>
       </form>
     </div>
   );
 }
+
+const styles = {
+  input: { padding: '10px', margin: '5px', borderRadius: '5px', border: '1px solid #ccc', width: '250px' },
+  boton: { padding: '10px 20px', backgroundColor: '#ff69b4', color: 'white', border: 'none', borderRadius: '20px', cursor: 'pointer', width: '100%', marginTop: '10px' }
+};

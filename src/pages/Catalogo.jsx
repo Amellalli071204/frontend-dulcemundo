@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Catalogo.css'; // ¡Aquí conectamos el estilo!
+import '../Catalogo.css'; 
 
 export default function Catalogo() {
   const [productos, setProductos] = useState([]);
@@ -9,7 +9,8 @@ export default function Catalogo() {
   useEffect(() => {
     const obtenerProductos = async () => {
       try {
-        const res = await axios.get('https://backend-dulcemundo-pro-production.up.railway.app');
+        // Agregamos /api/productos al final de tu URL de Railway
+        const res = await axios.get('https://backend-dulcemundo-pro-production.up.railway.app/api/productos');
         setProductos(res.data);
       } catch (error) {
         console.error("Error al obtener productos:", error);
@@ -26,9 +27,8 @@ export default function Catalogo() {
     <div className="catalogo-container">
       <h1 className="catalogo-titulo">Nuestros Dulces 🍬</h1>
       
-      {!productos || productos.length === 0 ? (
-        <p>Aún estamos preparando los dulces. ¡Vuelve pronto!</p>
-      ) : (
+      {/* Validación para evitar el error de 'undefined reading map' */}
+      {productos && productos.length > 0 ? (
         <div className="productos-grid">
           {productos.map((producto) => (
             <div key={producto.id} className="producto-card">
@@ -39,6 +39,8 @@ export default function Catalogo() {
             </div>
           ))}
         </div>
+      ) : (
+        <p>No hay dulces disponibles. ¡Asegúrate de insertarlos en DBeaver! 🍭</p>
       )}
     </div>
   );
