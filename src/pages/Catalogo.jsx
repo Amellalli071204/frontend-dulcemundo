@@ -1,45 +1,64 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Catalogo.css'; // Un solo punto porque están juntos
 
-export default function Catalogo() {
-  const [productos, setProductos] = useState([]);
-  const [cargando, setCargando] = useState(true);
+const Catalogo = () => {
+    const [productos, setProductos] = useState([]); // Iniciamos con lista vacía
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const obtenerProductos = async () => {
-      try {
-        // Usamos la URL completa de tu backend activo
-        const res = await axios.get('/api/productos');
-        setProductos(res.data);
-      } catch (error) {
-        console.error("Error de conexión con Railway:", error);
-      } finally {
-        setCargando(false);
-      }
+    const fetchProductos = async () => {
+        try {
+            // Usamos la ruta corta gracias al Proxy que ya configuramos
+            const res = await axios.get('/api/productos');
+            
+            console.log("Datos recibidos del backend:", res.data);
+
+            // VALIDACIÓN MAESTRA: Si no es lista, no hacemos .map
+            if (Array.isArray(res.data)) {
+                setProductos(res.data);
+            } else {
+                console.error("El backend no mandó una lista, mandó:", res.data);
+                setError("El servidor mandó un formato incorrecto.");
+                setProductos([]); 
+            }
+        } catch (err) {
+            console.error("Error al conectar con Railway:", err);
+            setError("No se pudieron cargar los dulces. Revisa la conexión.");
+        }
     };
-    obtenerProductos();
-  }, []);
 
-  if (cargando) return <h2 className="catalogo-titulo">Buscando tus dulces... 🍭</h2>;
+    useEffect(() => {
+        fetchProductos();
+    }, []);
 
-  return (
-    <div className="catalogo-container">
-      <h1 className="catalogo-titulo">Nuestros Dulces 🍬</h1>
-      {productos && productos.length > 0 ? (
-        <div className="productos-grid">
-          {productos.map((p) => (
-            <div key={p.id} className="producto-card">
-              <img src={p.imagen_url} alt={p.nombre} className="producto-img" />
-              <h3 className="producto-nombre">{p.nombre}</h3>
-              <p className="producto-precio">${p.precio}</p>
-              <button className="btn-agregar">Agregar 🛒</button>
+    return (
+        <div style={{ padding: '20px', color: 'white', backgroundColor: '#1a1a1a', minHeight: '100vh' }}>
+            <h1 style={{ color: '#ff69b4' }}>Nuestros Dulces 🍭</h1>
+            
+            {error && <p style={{ color: 'yellow' }}>⚠️ {error}</p>}
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                {productos.length > 0 ? (
+                    productos.map((producto) => (
+                        <div key={producto.id} style={{ border: '1px solid #ff69b4', padding: '15px', borderRadius: '10px' }}>
+                            <img 
+                                src={producto.imagen_url} 
+                                alt={producto.nombre} 
+                                style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '5px' }} 
+                            />
+                            <h3>{producto.nombre}</h3>
+                            <p>{producto.descripcion}</p>
+                            <p style={{ fontWeight: 'bold', color: '#ff69b4' }}>${producto.precio}</p>
+                            <button style={{ backgroundColor: '#ff69b4', border: 'none', padding: '10px', borderRadius: '5px', cursor: 'pointer' }}>
+                                Agregar al carrito 🛒
+                            </button>
+                        </div>
+                    ))
+                ) : (
+                    !error && <p>Cargando dulces deliciosos... 🍬</p>
+                )}
             </div>
-          ))}
         </div>
-      ) : (
-        <p>No hay dulces disponibles. ¡Revisa tu tabla en DBeaver! 🍭</p>
-      )}
-    </div>
-  );
-}
+    );
+};
+
+export default Catalogo;
