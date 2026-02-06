@@ -10,7 +10,7 @@ export default function Catalogo() {
     const obtenerProductos = async () => {
       try {
         // Usamos la URL completa de tu backend activo
-        const res = await axios.get('https://backend-dulcemundo-pro-production.up.railway.app/api/productos');
+        const res = await axios.get('/api/productos');
         setProductos(res.data);
       } catch (error) {
         console.error("Error de conexión con Railway:", error);
