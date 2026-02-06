@@ -9,7 +9,7 @@ export default function Catalogo() {
   useEffect(() => {
     const obtenerProductos = async () => {
       try {
-        const res = await axios.get('https://backend-dulcemundo-pro-production.up.railway.app/api/productos');
+        const res = await axios.get('https://backend-dulcemundo-pro-production.up.railway.app');
         setProductos(res.data);
       } catch (error) {
         console.error("Error al obtener productos:", error);
