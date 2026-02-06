@@ -9,7 +9,7 @@ export default function Login() {
   const entrar = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app/api/login', credenciales);
+      const res = await axios.post('https://backend-dulcemundo-pro-production.up.railway.app', credenciales);
       if (res.data.success) {
         // Guardamos el rol (admin o cliente) para saber qué mostrar
         localStorage.setItem('usuario', JSON.stringify(res.data.user));
